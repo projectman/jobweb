@@ -1,8 +1,9 @@
 from indeed import Indeed
 from dice import Dice
 from monster import Monster
+from careerbuilder import CareerBuilder
 
-#ff = Indeed()
+# ff = Indeed()
 #ff.update_resume()
 
 #nn = Dice()
@@ -10,3 +11,6 @@ from monster import Monster
 
 mm = Monster()
 mm.update_resume()
+
+cb = CareerBuilder()
+cb.update_resume()

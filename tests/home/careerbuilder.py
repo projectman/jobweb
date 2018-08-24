@@ -2,14 +2,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import *
 import time
 
 
-class CarreerBuilder:
+class CareerBuilder:
 
     def update_resume(self):
         """
@@ -22,11 +19,9 @@ class CarreerBuilder:
 
         driver = webdriver.Firefox()
         driver.get(home_url)
-        #driver.maximize_window()
         driver.implicitly_wait(3)
 
         # Sign in page
-
         wait = WebDriverWait(driver, 20)
         # Wait button Login
         wait.until(EC.element_to_be_clickable(
@@ -34,29 +29,25 @@ class CarreerBuilder:
         # Login page
         signbtn_el = wait.until(
             EC.element_to_be_clickable((By.ID, "btnsigninemp")))
-
         driver.find_element(By.ID, 'cbsys_login_email').send_keys(email)
-        driver.find_element( By.ID, "cbsys_login_password" ).send_keys(password)
-        #button_el = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='btn-login']")))
+        driver.find_element(By.ID, "cbsys_login_password").send_keys(password)
         signbtn_el.click()
 
         # ON profile page
         delay = WebDriverWait(driver, 20)
-        delay.until(EC.element_to_be_clickable(
-            (By.XPATH, "//a[@data-gtm='mobile-header|add-resume']"))).click()
+        delay.until(EC.element_to_be_clickable((
+            By.XPATH, "//a[@data-gtm='mobile-header|add-resume']"))).click()
 
         # On page resume upload
-        title_el = delay.until( EC.presence_of_element_located( (
-            By.ID, 'resume_title') ) )\
+        title_el = delay.until(EC.presence_of_element_located((
+                                By.ID, 'resume_title')))\
                .send_keys("QA Test Web Mobile Slenium Testing Tester")
-        print( "title_el found:", title_el )
+        # Debug print( "title_el found:", title_el )
         delay.until(EC.element_to_be_clickable(
             (By.XPATH, "//span[text()='Upload Resume']"))).click()
         save_el = delay.until(EC.element_to_be_clickable((By.ID,
               "save_resume")))
         save_el.click()
-
-
 
         # On update profile page
         delay.until(EC.element_to_be_clickable(
@@ -91,8 +82,8 @@ class CarreerBuilder:
 
         time.sleep(5)
 
-        #driver.close()
+        driver.close()
 
 
-ff = CarreerBuilder()
-ff.update_resume()
+# ff = CarreerBuilder()
+# ff.update_resume()
