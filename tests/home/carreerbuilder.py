@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import *
 import time
 
@@ -40,7 +41,7 @@ class CarreerBuilder:
         signbtn_el.click()
 
         # ON profile page
-        delay = WebDriverWait(driver, 15)
+        delay = WebDriverWait(driver, 20)
         delay.until(EC.element_to_be_clickable(
             (By.XPATH, "//a[@data-gtm='mobile-header|add-resume']"))).click()
 
@@ -72,12 +73,25 @@ class CarreerBuilder:
         sel_time.select_by_value('Hour')
         driver.find_element(By.ID, 'resume-salary-save').click()
 
-        # Delete resume from list.
-        # driver.find_element(By.XPATH, "//a[text()='Delete Resume']").click()
+        # Delete resume from list. If there is more than 1 resume in list.
+        delay.until(EC.element_to_be_clickable((By.XPATH, "//a[@class='delete-resume']"))).click()
+        # Handle JS popup
+        alert_1 = driver.switch_to.alert
+        alert_1.accept()
+        delete_el = delay.until(EC.visibility_of_all_elements_located((
+                        By.XPATH, "//a/i[@title='Delete']")))
+        if delete_el is not None: print ("delete_el found:", delete_el)
+        time.sleep(3)
+        # Click to delete all elements except last one. If length of list > 1
+        if len(delete_el) > 1:
+            delete_el.pop()  # will not delete last element that is newest.
+            for element in delete_el: element.click()
+            alert_2 = driver.switch_to.alert
+            alert_2.accept()
 
         time.sleep(5)
 
-        # driver.close()
+        #driver.close()
 
 
 ff = CarreerBuilder()
