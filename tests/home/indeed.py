@@ -7,6 +7,9 @@ import time
 
 class Indeed:
 
+    def __init__(self, folder):
+        self.folder = folder # path to resume file
+
     def update_resume(self):
         """
         Test Login page.
@@ -21,11 +24,9 @@ class Indeed:
         submit_xp = "//button[@type='submit']"
         profile_xp = "//span[@class='icl-DesktopGlobalHeader-toggleDropdown']"
         resume_xp   = "//a[@href='/promo/resume']"
-        upload_xp = "//div[@data-tn-element='uploadNewResumeBtn']"
 
         driver = webdriver.Firefox()
         driver.get(home_url)
-        #driver.maximize_window()
         driver.implicitly_wait(2)
 
         # sign in
@@ -44,17 +45,17 @@ class Indeed:
         # On logged in page
         driver.find_element(By.XPATH, profile_xp).click() # open menu
         wait.until(EC.element_to_be_clickable((By.XPATH, resume_xp))).click()  # click resume
-        # On profile page
-        driver.find_element(By.XPATH, upload_xp).click()
-        # time.sleep(10)
         # Wait until button Next will be clickable
+        # Can I found element input?
+        input_el = driver.find_element( By.XPATH, "//input[@type='file']" )
+        driver.execute_script( "arguments[0].style.display = 'block';", input_el )
+        input_el = driver.find_element( By.XPATH, "//input[@type='file']" )
+        input_el.send_keys(self.folder)
+
         wait = WebDriverWait( driver, 15 )
         next_el = wait.until(EC.element_to_be_clickable(
             (By.XPATH, "//button[@data-tn-element='nextBtn']"))
         )
-
-        if "Additional Information" in driver.page_source:
-            print( "Additional Information" )
 
         title_el = driver.find_element( By.XPATH,
         "/html//input[@id='input-Desired Job Title']" )
@@ -71,11 +72,19 @@ class Indeed:
             ch_boxes[indx].click()
 
         driver.find_element(By.ID, "input-salary-text").send_keys("49000")
-        time.sleep(5)
         next_el.click()
+        time.sleep(10)
 
-        time.sleep( 5 )
-        driver.close()
+        # Check that page include question about curr job and fill it
+        curr_el = driver.find_element(By.ID, 'input-undefined')
+
+        if curr_el is not None:
+            print ("test passed")
+            curr_el.send_keys('Scalable Software Hub').submit()
+
+        # enter check boxes for the new work.
+        time.sleep( 15 )
+        # driver.close()
 
 #ff = Indeed()
 #ff.update_resume()
