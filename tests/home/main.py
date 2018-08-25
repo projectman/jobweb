@@ -3,14 +3,27 @@ from dice import Dice
 from monster import Monster
 from careerbuilder import CareerBuilder
 
-# ff = Indeed()
-#ff.update_resume()
+class AllWebs:
 
-#nn = Dice()
-#nn.update_resume()
+    def indeed(self):
+        ff = Indeed()
+        ff.update_resume()
 
-mm = Monster()
-mm.update_resume()
+    def dice(self):
+        ff = Dice()
+        ff.update_resume()
 
-cb = CareerBuilder()
-cb.update_resume()
+    def monster(self):
+        ff = Monster()
+        ff.update_resume()
+
+    def careerbuiler(self):
+        ff = CareerBuilder()
+        ff.update_resume()
+
+ff = AllWebs()
+
+ff.indeed()
+ff.dice()
+ff.monster()
+ff.careerbuiler()
