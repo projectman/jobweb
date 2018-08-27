@@ -1,2 +1,11 @@
 INDEED
-improve after resume download what questions are. if... questions.
+improve check-boxes with types of job.
+
+DICE
+learn to upload file by themselves.
+
+Monster
+learn to upload file by themselves.
+
+carrier builder
+learn to upload file by themselves.
