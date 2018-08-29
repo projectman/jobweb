@@ -54,5 +54,5 @@ class Dice:
         done_xp = "/html//div[@id='profileForm']/div//div[@class='profile-summary-header']/div[@class='row']/div[1]/div[4]//button[.='Done']"
         self.driver.find_element(By.XPATH, done_xp).click()
         time.sleep(3)
-        driver.close()
+        self.driver.close()
 

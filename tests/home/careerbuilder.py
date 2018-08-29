@@ -70,13 +70,15 @@ class CareerBuilder:
 
         # Delete resume from list. If there is more than 1 resume in list.
         delay.until(EC.element_to_be_clickable((By.XPATH, "//a[@class='delete-resume']"))).click()
+
         # Handle JS popup
         alert_1 = self.driver.switch_to.alert
         alert_1.accept()
         delete_el = delay.until(EC.visibility_of_all_elements_located((
                         By.XPATH, "//a/i[@title='Delete']")))
-        if delete_el is not None: print ("delete_el found:", delete_el)
+        # Debug if delete_el is not None: print ("delete_el found:", delete_el)
         time.sleep(3)
+
         # Click to delete all elements except last one. If length of list > 1
         if len(delete_el) > 1:
             delete_el.pop()  # will not delete last element that is newest.

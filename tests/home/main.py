@@ -34,6 +34,6 @@ class AllWebs:
 ff = AllWebs()
 
 ff.indeed()
-# ff.dice()
-#ff.monster()
-# ff.careerbuiler()
+ff.dice()
+ff.monster()
+ff.careerbuiler()
