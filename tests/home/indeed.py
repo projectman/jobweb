@@ -42,7 +42,7 @@ class Indeed:
         self.driver.get(home_url)
         self.driver.implicitly_wait(2)
 
-        # sign in
+        # sign in Page
         signin_el = self.driver.find_element(By.XPATH, signin_xp)
         signin_el.click()
 
@@ -58,14 +58,17 @@ class Indeed:
         # On logged in page
         self.driver.find_element(By.XPATH, profile_xp).click() # open menu
         wait.until(EC.element_to_be_clickable((By.XPATH, resume_xp))).click()  # click resume
+
         # Wait until button Next will be clickable
-        # Can I found element input?
+        # Enter to input the path to the resume file
         input_el = self.driver.find_element( By.XPATH, "//input[@type='file']" )
         self.driver.execute_script( "arguments[0].style.display = 'block';", input_el )
         input_el = self.driver.find_element( By.XPATH, "//input[@type='file']" )
         input_el.send_keys(self.folder)
 
         wait = WebDriverWait( self.driver, 15 )
+
+        # Wait until last button on the page "Next" will be clickable
         next_el = wait.until(EC.element_to_be_clickable(
             (By.XPATH, "//button[@data-tn-element='nextBtn']"))
         )
@@ -74,30 +77,43 @@ class Indeed:
         title_el.send_keys("QA Tester Web Mobile testing")
         title_el.click()
 
-        # Check boxes of types of jobs
-        for indx in range(6):
-            # Search check-boxes
-            ch_boxes = self.driver.find_elements( By.XPATH,
-                    "//input[@class='icl-Checkbox-control']" )
-            print("ch_boxes indx:", ch_boxes[indx].text)
-            # take only # index in this list.
-            ch_boxes[indx].click()
-        # include hourly salary amount
+        # Check-boxes of types of jobs
+        type_values = [
+            'Full-time',
+            'Full-time',
+            'Contract',
+            'Commission',
+            'Temporary',
+            'Internship',
+            'Part-time'
+        ]
+        for value in type_values:
+            # Search all check-boxes as they constantly change
+            # or only 1st time the names of check-box items.
+            checkb_el = self.driver.find_element(By.XPATH,
+                    "//input[@value='"+value+"']")
+            # Debug print (checkb_el, checkb_el.text)
+            checkb_el.click()
+
+
+            print("ch_boxes value:", value)
+        # time.sleep( 10 )
+
+        # Update hourly salary amount
         self.driver.find_element(By.ID, "input-salary-text").send_keys("28")
         # Preselect hourly salary
-        selector = Select(self.driver)
-        selector.select_by_visible_text("per hour")
+        selector = Select(self.driver.find_element(By.XPATH, "//select[@name='salaryPicker']"))
+        selector.select_by_value("HOURLY")
         next_el.click()
-        time.sleep(10)
 
         # Check that page include question about curr job and fill it
         # text frame "input-undefinded will be if question "What compnay did you work..."
         field_xpth = "//input[@id='input-undefined']"
         if self.check_exists_by(By.XPATH, field_xpth):
-            print("company text is found")
-            button_save = self.driver.find_element(By.XPATH, field_xpth)\
+            # Debug print("company text is found")
+            self.driver.find_element(By.XPATH, field_xpth)\
                 .send_keys('Scalable Software Hub')
-            button_save.click()
+            self.driver.find_element(By.XPATH, "//button[text()='Save']").click()
 
         # Check if indeed asked about skills you have
         # enter check boxes for the new work
@@ -116,7 +132,9 @@ class Indeed:
             for skill in skills:
                 if skill in self.driver.page_source:
                     self.driver.find_element(By.XPATH, "//input[@value='"+skill+"']").click()
-            self.driver.find_element(By.XPATH, button_xpth).click()
+            save_btn = self.driver.find_element(By.XPATH, button_xpth).click()
+            if save_btn is  not None:
+                print("save_btn found:", save_btn.text)
         time.sleep( 10 )
         # self.driver.close()
 

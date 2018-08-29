@@ -50,7 +50,7 @@ class Monster:
 
         web_el = self.driver.find_element(By.ID,
                                      "Website")
-        print ("web_el.text", web_el.text)
+        # Debug print ("web_el.text", web_el.text)
         if web_el.text is None:
             web_el.clear()
             web_el.send_keys("https://www.qatester.org")

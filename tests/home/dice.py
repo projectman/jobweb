@@ -29,6 +29,14 @@ class Dice:
         self.driver.find_element(By.ID, "Email_1").send_keys(email)
         self.driver.find_element( By.ID, "Password_1" ).send_keys(password)
         self.driver.find_element(By.ID, "LoginBtn_1").click()
+
+        # Upload the file of resume from folder
+        # input_el = self.driver.find_element(By.ID, "resumeFile")
+        #self.driver.execute_script( "arguments[0].style.display = 'block';", input_el )
+        #input_el = self.driver.find_element( By.XPATH, "//input[@type='file']" )
+        # input_el.click()
+        # input_el.send_keys( self.folder )
+        time.sleep(3)
         self.driver.find_element(By.ID, "resumeFile").click()
         # Wait file download
         #time.sleep(15)
