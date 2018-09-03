@@ -135,8 +135,8 @@ class Indeed:
             save_btn = self.driver.find_element(By.XPATH, button_xpth).click()
             if save_btn is  not None:
                 print("save_btn found:", save_btn.text)
-        time.sleep( 10 )
-        # self.driver.close()
+        time.sleep( 5 )
+        self.driver.close()
 
 #ff = Indeed()
 #ff.update_resume()

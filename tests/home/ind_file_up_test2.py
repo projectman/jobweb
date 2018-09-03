@@ -101,7 +101,7 @@ class Indeed:
                     print ("skill:", skill)
                     driver.find_element(By.XPATH, "//input[@value='"+skill+"']")
 
-        time.sleep( 15 )
+        time.sleep(15)
         # driver.close()
 
 target_fdr = '/Users/olegbushmelev/PycharmProjects/updateresume/files/*.pdf'
