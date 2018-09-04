@@ -56,7 +56,7 @@ def select_site():
         print('Chosen for processing:', SITES[res])
         return res
     else:
-        print("Enter letter from the list:  a, d, m, i, d")
+        print("Enter letter from the list:  a, d, m, i, c")
         select_site()
 
 def main():

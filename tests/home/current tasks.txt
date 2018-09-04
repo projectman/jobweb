@@ -1,11 +1,14 @@
 INDEED
-improve check-boxes with types of job.
 
-DICE
-learn to upload file by themselves.
 
-Monster
-learn to upload file by themselves.
+* Security - tooke password and login out from script to file
+that will not be on web.
 
-carrier builder
-learn to upload file by themselves.
+* Current
+    Monster
+    learn to upload file by themselves.
+
+    DICE
+    learn to upload file by themselves.
+
+    make conversion string to func name and call. instead of if elif.
