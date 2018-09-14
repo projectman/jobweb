@@ -130,12 +130,14 @@ class Indeed:
             # Check in skills
             print ("skills_txt is found")
             for skill in skills:
+                print ("Current skill:", skill)
                 if skill in self.driver.page_source:
                     self.driver.find_element(By.XPATH, "//input[@value='"+skill+"']").click()
             save_btn = self.driver.find_element(By.XPATH, button_xpth).click()
             if save_btn is  not None:
                 print("save_btn found:", save_btn.text)
         time.sleep( 5 )
+        print("Indeed updated successfully.")
         self.driver.close()
 
 #ff = Indeed()

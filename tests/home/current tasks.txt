@@ -1,7 +1,7 @@
 INDEED
 
 
-* Security - tooke password and login out from script to file
+* Security - take password and login out from script to file
 that will not be on web.
 
 * Current

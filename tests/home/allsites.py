@@ -73,10 +73,10 @@ def main():
     elif site == 'm':
         res.monster()
     else:
-        res.indeed()
         res.dice()
         res.monster()
         res.careerbuiler()
+        res.indeed()
 
 
     # Fullfill in accordance with choice.

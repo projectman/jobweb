@@ -65,16 +65,16 @@ class CareerBuilder:
         select.select_by_visible_text(
             'Software QA Tester at Scalable Software Hub')
         recent_pay = self.driver.find_element(By.NAME, 'mostRecentPay')
-        recent_pay.send_keys(28)
-        time.sleep(5)
+        recent_pay.send_keys(22)
+        time.sleep(3)
         sel_time = Select(self.driver.find_element(By.NAME, 'salaryFrequency'))
         sel_time.select_by_value('Hour')
-        time.sleep( 10 )
+        time.sleep( 5 )
         self.driver.find_element(By.ID, 'resume-salary-save').click()
 
         # Delete resume from list. If there is more than 1 resume in list.
         delay.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='/resumes']"))).click()
-        time.sleep(5)
+        time.sleep(2)
         # Handle JS popup
         # alert_1 = self.driver.switch_to.alert
         # alert_1.accept()
@@ -90,8 +90,8 @@ class CareerBuilder:
             alert_2 = self.driver.switch_to.alert
             alert_2.accept()
 
-        time.sleep(5)
-
+        time.sleep(2)
+        print( "Careerbuilding updated successfully." )
         self.driver.close()
 
 

@@ -74,7 +74,8 @@ class Monster:
             web_el.clear()
             web_el.send_keys("https://www.linkedin.com/oleg-bush/")
         save_el.click()
-        time.sleep(5)
+        print("Monster updated successfully.")
+        time.sleep(3)
 
         self.driver.close()
 
