@@ -112,7 +112,7 @@ class Indeed:
         if self.check_exists_by(By.XPATH, field_xpth):
             # Debug print("company text is found")
             self.driver.find_element(By.XPATH, field_xpth)\
-                .send_keys('Scalable Software Hub')
+                .send_keys('ç')
             self.driver.find_element(By.XPATH, "//button[text()='Save']").click()
 
         # Check if indeed asked about skills you have

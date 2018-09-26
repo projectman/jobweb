@@ -26,6 +26,12 @@ class CareerBuilder:
         self.driver.implicitly_wait(3)
 
         # Sign in page
+        time.sleep(5)
+        try:
+            self.driver.find_element(By.XPATH, "//span[text()='Close']").click()
+        except:
+            pass
+        time.sleep(3)
         wait = WebDriverWait(self.driver, 20)
         # Wait button Login
         wait.until(EC.element_to_be_clickable(
@@ -74,15 +80,12 @@ class CareerBuilder:
 
         # Delete resume from list. If there is more than 1 resume in list.
         delay.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='/resumes']"))).click()
-        time.sleep(2)
         # Handle JS popup
         # alert_1 = self.driver.switch_to.alert
         # alert_1.accept()
         delete_el = delay.until(EC.visibility_of_all_elements_located((
                         By.XPATH, "//a/i[@title='Delete']")))
         # Debug if delete_el is not None: print ("delete_el found:", delete_el)
-        time.sleep(3)
-
         # Click to delete all elements except last one. If length of list > 1
         if len(delete_el) > 1:
             delete_el.pop(0)  # will not delete last element that is newest.
@@ -90,7 +93,6 @@ class CareerBuilder:
             alert_2 = self.driver.switch_to.alert
             alert_2.accept()
 
-        time.sleep(2)
         print( "Careerbuilding updated successfully." )
         self.driver.close()
 

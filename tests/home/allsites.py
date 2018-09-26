@@ -51,7 +51,7 @@ def select_site():
     # print the names
     for item in SITES.items():
         print("For submitting:", item[1], "chose:", item[0])
-    res = str(input("Chose: a, d, m, i, d:")).lower()
+    res = str(input("Chose: a, d, m, i, c: ")).lower()
     if res in SITES.keys():
         print('Chosen for processing:', SITES[res])
         return res
