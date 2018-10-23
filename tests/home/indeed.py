@@ -55,16 +55,23 @@ class Indeed:
         email_el.send_keys(email)
         self.driver.find_element(By.XPATH, pwrd_xp).send_keys(password)
         submit_el.click()
+
         # On logged in page
         self.driver.find_element(By.XPATH, profile_xp).click() # open menu
         wait.until(EC.element_to_be_clickable((By.XPATH, resume_xp))).click()  # click resume
 
         # Wait until button Next will be clickable
+        # Resume Tab click
+        wait.until(EC.element_to_be_clickable((By.ID, "resumeTabLink"))).click()
+
         # Enter to input the path to the resume file
-        input_el = self.driver.find_element( By.XPATH, "//input[@type='file']" )
-        self.driver.execute_script( "arguments[0].style.display = 'block';", input_el )
-        input_el = self.driver.find_element( By.XPATH, "//input[@type='file']" )
-        input_el.send_keys(self.folder)
+        wait.until(EC.element_to_be_clickable((
+            By.XPATH, "//div[@data-tn-element='uploadNewResumeBtn']"))).click()
+
+        # Self placing file for upload
+        # self.driver.execute_script( "arguments[0].style.display = 'block';", input_el )
+        # input_el = self.driver.find_element( By.XPATH, "//input[@type='file']" )
+        # input_el.send_keys(self.folder)
 
         wait = WebDriverWait( self.driver, 15 )
 
@@ -74,12 +81,13 @@ class Indeed:
         )
         title_el = self.driver.find_element( By.XPATH,
         "/html//input[@id='input-Desired Job Title']" )
-        title_el.send_keys("QA Tester Web Mobile testing")
-        title_el.click()
+        title_el.send_keys("QA Tester")
+        wait.until(EC.element_to_be_clickable((
+            By.XPATH, "//span[text()='QA Tester']"))).click()
+        time.sleep(5)
 
         # Check-boxes of types of jobs
         type_values = [
-            'Full-time',
             'Full-time',
             'Contract',
             'Commission',
@@ -95,9 +103,7 @@ class Indeed:
             # Debug print (checkb_el, checkb_el.text)
             checkb_el.click()
 
-
             print("ch_boxes value:", value)
-        # time.sleep( 10 )
 
         # Update hourly salary amount
         self.driver.find_element(By.ID, "input-salary-text").send_keys("28")
@@ -109,11 +115,13 @@ class Indeed:
         # Check that page include question about curr job and fill it
         # text frame "input-undefinded will be if question "What compnay did you work..."
         field_xpth = "//input[@id='input-undefined']"
-        if self.check_exists_by(By.XPATH, field_xpth):
+        try:
             # Debug print("company text is found")
             self.driver.find_element(By.XPATH, field_xpth)\
-                .send_keys('ç')
+                .send_keys('Scalable Software Hub')
             self.driver.find_element(By.XPATH, "//button[text()='Save']").click()
+        except:
+            pass
 
         # Check if indeed asked about skills you have
         # enter check boxes for the new work

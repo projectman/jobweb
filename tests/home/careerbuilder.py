@@ -26,7 +26,7 @@ class CareerBuilder:
         self.driver.implicitly_wait(3)
 
         # Sign in page
-        time.sleep(5)
+        time.sleep(3)
         try:
             self.driver.find_element(By.XPATH, "//span[text()='Close']").click()
         except:
@@ -51,7 +51,7 @@ class CareerBuilder:
         # On page resume upload
         title_el = delay.until(EC.presence_of_element_located((
                                 By.ID, 'resume_title')))\
-               .send_keys("QA Test Web Mobile Slenium Testing Tester")
+               .send_keys("QA Tester Web Mobile")
         # Debug print( "title_el found:", title_el )
         delay.until(EC.element_to_be_clickable(
             (By.XPATH, "//span[text()='Upload Resume']"))).click()
@@ -64,18 +64,18 @@ class CareerBuilder:
         delay.until(EC.element_to_be_clickable(
             (By.ID, 'resume-salary-add')
         )).click()
-        time.sleep(5)
+        time.sleep(3)
         select = Select(delay.until(EC.element_to_be_clickable(
             (By.ID, 'work-experience-id')
         )))
         select.select_by_visible_text(
-            'Software QA Tester at Scalable Software Hub')
+            'Software QA Tester at')
         recent_pay = self.driver.find_element(By.NAME, 'mostRecentPay')
         recent_pay.send_keys(22)
         time.sleep(3)
         sel_time = Select(self.driver.find_element(By.NAME, 'salaryFrequency'))
         sel_time.select_by_value('Hour')
-        time.sleep( 5 )
+        time.sleep(3)
         self.driver.find_element(By.ID, 'resume-salary-save').click()
 
         # Delete resume from list. If there is more than 1 resume in list.

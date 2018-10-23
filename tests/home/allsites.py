@@ -51,12 +51,12 @@ def select_site():
     # print the names
     for item in SITES.items():
         print("For submitting:", item[1], "chose:", item[0])
-    res = str(input("Chose: a, d, m, i, c: ")).lower()
+    res = str(input("Chose: a, d, m, c, i: ")).lower()
     if res in SITES.keys():
         print('Chosen for processing:', SITES[res])
         return res
     else:
-        print("Enter letter from the list:  a, d, m, i, c")
+        print("Enter letter from the list:  a, d, m, c, i")
         select_site()
 
 def main():
