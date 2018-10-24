@@ -1,29 +1,27 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
+from tests.home.utilities.utilities import Util
 import time
 
 
-class CareerBuilder:
+class CareerBuilder(Util):
 
     def __init__(self, folder, crednls):
         self.folder = folder  # path to resume file
-        self.driver = webdriver.Firefox()
         self.crednls = crednls
+        Util.__init__(self)
 
 
-    def update_resume(self):
+    def update_careerb(self):
         """
         Test Login page.
         """
         # Home page
+
         home_url = "https://www.careerbuilder.com"
-        email = self.crednls["email"]
-        password = self.crednls["password"]
-        self.driver.get(home_url)
-        self.driver.implicitly_wait(3)
+        self.launch(home_url)
 
         # Sign in page
         time.sleep(3)
@@ -39,8 +37,8 @@ class CareerBuilder:
         # Login page
         signbtn_el = wait.until(
             EC.element_to_be_clickable((By.ID, "btnsigninemp")))
-        self.driver.find_element(By.ID, 'cbsys_login_email').send_keys(email)
-        self.driver.find_element(By.ID, "cbsys_login_password").send_keys(password)
+        self.driver.find_element(By.ID, 'cbsys_login_email').send_keys(self.crednls["email"])
+        self.driver.find_element(By.ID, "cbsys_login_password").send_keys(self.crednls["password"])
         signbtn_el.click()
 
         # ON profile page
@@ -95,6 +93,7 @@ class CareerBuilder:
 
         print( "Careerbuilding updated successfully." )
         self.driver.close()
+
 
 
 # ff = CarreerBuilder()

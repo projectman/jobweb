@@ -1,4 +1,4 @@
-from selenium import webdriver
+from tests.home.utilities.utilities import Util
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,13 +7,12 @@ from selenium.webdriver.support.ui import Select
 import time
 
 
-class Indeed:
+class Indeed (Util):
 
     def __init__(self, folder, crednls):
-        self.folder = folder # path to resume file
-        self.driver = webdriver.Firefox()
+        self.folder = folder
         self.crednls = crednls
-
+        Util.__init__(self)
 
     def check_exists_by(self, type, xpth):
         """check if element with param can be found by type.
@@ -25,16 +24,13 @@ class Indeed:
             return False
         return True
 
-    def update_resume(self):
+    def update_indeed(self):
         """
         Test Login page.
         """
         # Home page
         # !!! Refacoring
-        email = self.crednls["email"]
-        password = self.crednls["password"]
 
-        home_url = "https://www.indeed.com"
         signin_xp = "//a[contains(text(),'Sign in')]"
         email_xp = "//input[@id='signin_email']"
         pwrd_xp = "//input[@id='signin_password']"
@@ -42,9 +38,9 @@ class Indeed:
         profile_xp = "//span[@class='icl-DesktopGlobalHeader-toggleDropdown']"
         resume_xp   = "//a[@href='/promo/resume']"
 
+        home_url = "https://www.indeed.com"
+        self.launch(home_url)
 
-        self.driver.get(home_url)
-        self.driver.implicitly_wait(2)
         wait = WebDriverWait(self.driver, 15)
         # sign in Page
         signin_el = wait.until(EC.element_to_be_clickable((By.XPATH, signin_xp)))
@@ -56,8 +52,9 @@ class Indeed:
         # Enter email and password
         email_el = self.driver.find_element(By.XPATH, email_xp)
         email_el.clear()
-        email_el.send_keys(email)
-        self.driver.find_element(By.XPATH, pwrd_xp).send_keys(password)
+        email_el.send_keys(self.crednls["email"])
+        self.driver.find_element(By.XPATH, pwrd_xp).send_keys(
+                                    self.crednls["password"])
         submit_el.click()
 
         # On logged in page
@@ -152,5 +149,7 @@ class Indeed:
         print("Indeed updated successfully.")
         self.driver.close()
 
-#ff = Indeed()
-#ff.update_resume()
+
+
+# ff = Indeed( 10, 10 , 10)
+# print(help(ff))
