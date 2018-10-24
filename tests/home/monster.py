@@ -7,9 +7,10 @@ import time
 
 class Monster:
 
-    def __init__(self, folder):
+    def __init__(self, folder, crednls):
         self.folder = folder  # path to resume file
         self.driver = webdriver.Firefox()
+        self.crednls = crednls
 
     def update_resume(self):
         """
@@ -17,8 +18,8 @@ class Monster:
         """
         # Home page
         home_url = "https://www.monster.com"
-        email = "man4testing@gmail.com"
-        password = "Drm469Olb"
+        email = self.crednls["email"]
+        password = self.crednls["password"]
 
 
         self.driver.get(home_url)

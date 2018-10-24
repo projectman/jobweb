@@ -7,9 +7,10 @@ import time
 
 class Dice:
 
-    def __init__(self, folder):
+    def __init__(self, folder, crednls):
         self.folder = folder # path to resume file
         self.driver = webdriver.Firefox()
+        self.crednls = crednls
 
     def update_resume(self):
         """
@@ -17,8 +18,9 @@ class Dice:
         """
         # Home page
         home_url = "https://www.dice.com"
-        email = "man4testing@gmail.com"
-        password = "Drm469Olb"
+        # !!! Refactoring
+        email = self.crednls["email"]
+        password = self.crednls["password"]
 
         self.driver.get(home_url)
         #driver.maximize_window()

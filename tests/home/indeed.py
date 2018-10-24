@@ -9,9 +9,11 @@ import time
 
 class Indeed:
 
-    def __init__(self, folder):
+    def __init__(self, folder, crednls):
         self.folder = folder # path to resume file
         self.driver = webdriver.Firefox()
+        self.crednls = crednls
+
 
     def check_exists_by(self, type, xpth):
         """check if element with param can be found by type.
@@ -28,12 +30,14 @@ class Indeed:
         Test Login page.
         """
         # Home page
+        # !!! Refacoring
+        email = self.crednls["email"]
+        password = self.crednls["password"]
+
         home_url = "https://www.indeed.com"
         signin_xp = "//a[contains(text(),'Sign in')]"
         email_xp = "//input[@id='signin_email']"
-        email = "man4testing@gmail.com"
         pwrd_xp = "//input[@id='signin_password']"
-        password = "Drm469Olb"
         submit_xp = "//button[@type='submit']"
         profile_xp = "//span[@class='icl-DesktopGlobalHeader-toggleDropdown']"
         resume_xp   = "//a[@href='/promo/resume']"
@@ -41,12 +45,12 @@ class Indeed:
 
         self.driver.get(home_url)
         self.driver.implicitly_wait(2)
-
+        wait = WebDriverWait(self.driver, 15)
         # sign in Page
-        signin_el = self.driver.find_element(By.XPATH, signin_xp)
+        signin_el = wait.until(EC.element_to_be_clickable((By.XPATH, signin_xp)))
         signin_el.click()
 
-        wait = WebDriverWait( self.driver, 10 )
+
         # Wait until button Submit clickable
         submit_el = wait.until( EC.element_to_be_clickable((By.XPATH, submit_xp)))
         # Enter email and password
@@ -73,7 +77,7 @@ class Indeed:
         # input_el = self.driver.find_element( By.XPATH, "//input[@type='file']" )
         # input_el.send_keys(self.folder)
 
-        wait = WebDriverWait( self.driver, 15 )
+        wait = WebDriverWait( self.driver, 20 )
 
         # Wait until last button on the page "Next" will be clickable
         next_el = wait.until(EC.element_to_be_clickable(
