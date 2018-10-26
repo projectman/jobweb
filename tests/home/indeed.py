@@ -85,7 +85,6 @@ class Indeed (Util):
         title_el.send_keys("QA Tester")
         wait.until(EC.element_to_be_clickable((
             By.XPATH, "//span[text()='QA Tester']"))).click()
-        time.sleep(5)
 
         # Check-boxes of types of jobs
         type_values = [
@@ -145,7 +144,6 @@ class Indeed (Util):
             save_btn = self.driver.find_element(By.XPATH, button_xpth).click()
             if save_btn is  not None:
                 print("save_btn found:", save_btn.text)
-        time.sleep( 5 )
         print("Indeed updated successfully.")
         self.driver.close()
 
